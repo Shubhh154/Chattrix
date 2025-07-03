@@ -68,8 +68,12 @@ app.use(
   })
 );
 
-app.use("/api/auth", authRoutes);
-app.use("/api/messages", messageRoutes);
+try {
+  app.use("/api/auth", authRoutes);
+  app.use("/api/messages", messageRoutes);
+} catch (err) {
+  console.error("Route setup error:", err)
+}
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
